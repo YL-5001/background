@@ -7,8 +7,10 @@ export default createStore({
   },
   mutations: {
   },
+  //异步
   actions: {
   },
+  //分模块
   modules: {
   }
 })
