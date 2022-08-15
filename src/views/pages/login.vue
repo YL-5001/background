@@ -1,7 +1,7 @@
 <template>
   <div class="login_wrap">
     <div class="form_wrap">
-      <el-form ref="ruleFormRef" :model="data.loginData" status-icon label-width="120px" class="demo-ruleForm">
+      <el-form ref="ruleFormRef" :model="data.loginData" label-width="120px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="userName" :rules="[
             {
                 required:'ture',
@@ -22,8 +22,10 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="handleLogin()">登录</el-button>
-          <el-button @click="cancelLogin()">取消</el-button>
+          <!-- <el-button type="primary" @click="handleLogin()">登录</el-button> -->
+          <i class="iconfont icon-error" @click="cancelLogin()"></i>
+          <i class="iconfont icon-arrow-right-circle" @click="handleLogin()"></i>
+          <!-- <el-button @click="cancelLogin()">取消</el-button> -->
         </el-form-item>
       </el-form>
     </div>
@@ -86,6 +88,19 @@
       /* 毛玻璃效果 */
       background: rgba(213, 213, 233, 0.72);
       backdrop-filter: saturate(180%) blur(5px);
+      .el-form-item {
+        i {
+          padding-right: 30px;
+          cursor: pointer;
+          font-size: 30px;
+        }
+        .icon-error {
+          color: #d54b00f1;
+        }
+        .icon-arrow-right-circle {
+          color: #0075d5;
+        }
+      }
     }
   }
 </style>
