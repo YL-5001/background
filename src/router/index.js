@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
+import store from '../store/index'
 
 const routes = [
   //登录页面
@@ -36,6 +37,20 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+//路由守卫
+router.beforeEach((to,form,next) => {
+  if (!store.state.uInfo.userInfo.userName) {
+    //未登录,跳转到logoin
+    if (to.path === '/login') {
+      next()
+      return
+    }
+    next('/login')
+  }else{
+    next()
+  }
 })
 
 export default router

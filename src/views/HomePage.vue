@@ -5,7 +5,7 @@
         <div class="flex">
           <h1>后台</h1>
         </div>
-        <el-button type="success">Success</el-button>
+        <el-button type="success" @click="loginOut">退出</el-button>
       </el-header>
       <el-container>
         <el-aside class="common-aside" width="200px">
@@ -50,7 +50,19 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
   name: 'HomePage'
+  const store = useStore()
+  const router = useRouter()
+  //退出登录
+  const loginOut = () => {
+    localStorage.removeItem('loginData')
+    store.commit('setUserInfo',{})
+    router.push({
+      path:'/login'
+    })
+  }
 </script>
 
 <style scoped lang="less">
