@@ -22,4 +22,10 @@ a {
   align-items: center;
   justify-content: space-between;
 }
+
+.page_content {
+  padding: 20px;
+  width: 100%;
+  background: #000;
+}
 </style>

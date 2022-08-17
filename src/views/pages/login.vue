@@ -2,14 +2,14 @@
   <div class="login_wrap">
     <div class="form_wrap">
       <el-form ref="ruleFormRef" :model="data.loginData" label-width="120px" class="demo-ruleForm">
-        <el-form-item label="用户名" prop="userName" :rules="[
+        <el-form-item label="用户名" prop="username" :rules="[
             {
                 required:'ture',
                 message:'此处为必填项',
                 trigger:'blur'
             }
         ]">
-          <el-input v-model="data.loginData.userName" />
+          <el-input v-model="data.loginData.username" />
         </el-form-item>
         <el-form-item label="密码" prop="password" :rules="[
             {
@@ -40,15 +40,18 @@
   import {
     useRouter
   } from 'vue-router'
-  const {
+  import {
+    loginApi
+  } from '@/util/request'
+  import {
     reactive
-  } = require("vue")
+  } from 'vue';
   const store = useStore()
   const router = useRouter()
 
   const data = reactive({
     loginData: {
-      userName: '',
+      username: '',
       password: ''
     }
   })
@@ -56,17 +59,24 @@
 
   //登录
   const handleLogin = () => {
-    store.commit('setUserInfo', data.loginData)
-    //把登录信息传到浏览器缓存
-    localStorage.setItem('loginData', JSON.stringify(data.loginData))
-    //登录后跳转/user页面
-    router.push({
-      path: '/user'
+    // 请求后台接口
+    //默认用户名/密码：admin/123456
+    loginApi(data.loginData).then(res => {
+      if (res.data) {
+        store.commit('setUserInfo', res.data)
+        //把登录信息传到浏览器缓存
+        localStorage.setItem('loginData', JSON.stringify(res.data))
+        //登录后跳转/user页面
+        router.push({
+          path: '/'
+        })
+      }
     })
+
   }
   //取消输入信息
   const cancelLogin = () => {
-    data.loginData.userName = '',
+    data.loginData.username = '',
       data.loginData.password = ''
   }
 </script>
@@ -88,15 +98,18 @@
       /* 毛玻璃效果 */
       background: rgba(213, 213, 233, 0.72);
       backdrop-filter: saturate(180%) blur(5px);
+
       .el-form-item {
         i {
           padding-right: 30px;
           cursor: pointer;
           font-size: 30px;
         }
+
         .icon-error {
           color: #d54b00f1;
         }
+
         .icon-arrow-right-circle {
           color: #0075d5;
         }

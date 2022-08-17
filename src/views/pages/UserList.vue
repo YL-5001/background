@@ -1,5 +1,11 @@
 <template>
-  <h2>用户列表</h2>
+  <div>
+    <!-- 面包屑 -->
+    <!-- 内容 -->
+    <div class="page_content">
+      
+    </div>
+  </div>
 </template>
 
 <script setup>

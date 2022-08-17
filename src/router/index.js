@@ -7,7 +7,7 @@ const routes = [
   {
     path:'/login',
     name:'login',
-    component:() => import("@/views/pages/login.vue")
+    component:() => import("../views/pages/login.vue")
   },
   {
     path: '/',
@@ -17,8 +17,8 @@ const routes = [
     children:[
       {
         path: '/user',
-        name: 'userList',
-        component: () => import("@/views/pages/UserList.vue")
+        name: 'user',
+        component: () => import("../views/pages/UserList.vue")
       },
       {
         path: '/goods',
@@ -41,7 +41,7 @@ const router = createRouter({
 
 //路由守卫
 router.beforeEach((to,form,next) => {
-  if (!store.state.uInfo.userInfo.userName) {
+  if (!store.state.uInfo.userInfo.username) {
     //未登录,跳转到logoin
     if (to.path === '/login') {
       next()
