@@ -74,7 +74,7 @@
     })
 
   }
-  //取消输入信息
+  //取消输入信息，清空输入框
   const cancelLogin = () => {
     data.loginData.username = '',
       data.loginData.password = ''

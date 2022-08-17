@@ -43,7 +43,11 @@
             </el-sub-menu>
           </el-menu>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <!-- 根据点击el-menu-item跳转内容区路由,显示对应模块 -->
+          <!-- 好用 -->
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -78,6 +82,10 @@ import { useStore } from 'vuex'
 
     .common-aside {
       background: #666666;
+    }
+
+    .el-main {
+      background: #efefef;
     }
   }
 </style>

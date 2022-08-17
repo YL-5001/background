@@ -13,8 +13,15 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomePage,
+    // 重定向
+    redirect:'/index',
     // 子路由
     children:[
+      {
+        path: '/index',
+        name: 'index',
+        component: () => import("../views/pages/index.vue")
+      },
       {
         path: '/user',
         name: 'user',

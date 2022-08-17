@@ -24,8 +24,9 @@ a {
 }
 
 .page_content {
+  margin-top: 30px;
   padding: 20px;
   width: 100%;
-  background: #000;
+  background: #fff;
 }
 </style>

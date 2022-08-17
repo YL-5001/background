@@ -6,3 +6,11 @@ export const loginApi = data => {
         data
     })
 }
+
+//获取用户列表
+export const userListApi = data => {
+    return get({
+        url:'/users',
+        data
+    })
+}
