@@ -4,7 +4,7 @@
       <el-form ref="ruleFormRef" :model="data.loginData" label-width="120px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="username" :rules="[
             {
-                required:'ture',
+                required:'true',
                 message:'此处为必填项',
                 trigger:'blur'
             }
@@ -13,7 +13,7 @@
         </el-form-item>
         <el-form-item label="密码" prop="password" :rules="[
             {
-                required:'ture',
+                required:'true',
                 message:'此处为必填项',
                 trigger:'blur'
             }

@@ -14,3 +14,11 @@ export const userListApi = data => {
         data
     })
 }
+
+//获取新增列表
+export const userAddApi = data => {
+    return post({
+        url:'/users',
+        data
+    })
+}
