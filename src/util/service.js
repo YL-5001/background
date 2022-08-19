@@ -29,7 +29,7 @@ Service.interceptors.request.use(config => {
 Service.interceptors.response.use(response=>{
     loadingObj.close()
     const data = response.data
-    if(!data.data){
+    if(data.meta.status != 200){
         //请求出错
         ElMessage.error(data.meta.msg||'服务器出错404')
         return data
@@ -66,5 +66,12 @@ export const put = config => {
         ...config,
         method:'put',
         params:config.data
+    })
+}
+//delete请求
+export const del = config => {
+    return Service({
+        ...config,
+        method:'delete'
     })
 }

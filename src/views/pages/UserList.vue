@@ -40,7 +40,7 @@
           <template #default="scope">
             <!-- scope.row相当于一条数据 -->
             <el-button type="primary" @click="editRow(scope.row)">编辑</el-button>
-            <el-button type="danger">删除</el-button>
+            <el-button type="danger" @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -108,7 +108,8 @@
     userListApi,
     userAddApi,
     userChangeStateApi,
-    userChangeInfoApi
+    userChangeInfoApi,
+    userDeleteApi
   } from '@/util/request'
 
   const userForm = ref()
@@ -242,6 +243,15 @@
     data.formData2.email = row.email
     data.formData2.mobile = row.mobile
     data.formData2.id = row.id
+  }
+
+  const deleteRow = (row) => {
+    userDeleteApi(row).then(res => {
+      if(res) {
+        //再次初始化用户列表
+        searchList()
+      }
+    })
   }
 
   //初始化执行的方法，相当于生命周期create里
