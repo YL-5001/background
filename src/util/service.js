@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 //引入element-plus的loading
 import { ElLoading } from 'element-plus'
 //引入message
@@ -57,6 +57,14 @@ export const get = config => {
     return Service({
         ...config,
         method:'get',
+        params:config.data
+    })
+}
+//put请求
+export const put = config => {
+    return Service({
+        ...config,
+        method:'put',
         params:config.data
     })
 }

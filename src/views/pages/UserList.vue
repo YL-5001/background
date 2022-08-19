@@ -9,7 +9,7 @@
     <div class="page_content">
       <div class="flex">
         <div class="input_box">
-          <el-input v-model="data.keyWord" placeholder="输入关键字" class="input-with-select">
+          <el-input v-model="data.searchParams.query" placeholder="输入关键字" class="input-with-select">
             <template #append>
               <el-button @click="searchList()">
                 <el-icon>
@@ -32,20 +32,20 @@
           <!-- 插槽 -->
           <template #default="scope">
             <!-- scope.row相当于一条数据 -->
-            <el-switch v-model="scope.row.mg_state" />
+            <el-switch v-model="scope.row.mg_state" @change="switchChange(scope.row)" />
           </template>
         </el-table-column>
         <el-table-column label="编辑">
           <!-- 插槽 -->
-          <template #default="">
+          <template #default="scope">
             <!-- scope.row相当于一条数据 -->
-            <el-button type="primary">编辑</el-button>
+            <el-button type="primary" @click="editRow(scope.row)">编辑</el-button>
             <el-button type="danger">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <!-- 弹窗 -->
+    <!-- 新增的弹窗 -->
     <el-dialog v-model="data.dialogFormVisible" title="新建用户">
       <!-- 表单
     | 参数名   | 参数说明 | 备注     |
@@ -75,6 +75,23 @@
         </div>
       </template>
     </el-dialog>
+    <!-- 编辑的弹窗 -->
+    <el-dialog v-model="data.dialogFormEVisible" title="编辑用户">
+      <el-form ref="userForm2" :model="data.formData2" :rules="data.rules">
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="data.formData2.email" placeholder="请输入邮箱" />
+        </el-form-item>
+        <el-form-item label="手机号" prop="mobile">
+          <el-input v-model="data.formData2.mobile" placeholder="请输入手机号" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="felx">
+          <el-button>取消</el-button>
+          <el-button type="primary" @click="submitEForm(userForm2)">确定</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -89,12 +106,14 @@
   //引入自定义的Api
   import {
     userListApi,
-    userAddApi
+    userAddApi,
+    userChangeStateApi,
+    userChangeInfoApi
   } from '@/util/request'
 
   const userForm = ref()
+  const userForm2 = ref()
   const data = reactive({
-    keyWord: '',
     // userListApi的数据对象
     searchParams: {
       query: '',
@@ -103,9 +122,15 @@
     },
     userList: [],
     dialogFormVisible: false,
+    dialogFormEVisible: false,
     formData: {
       username: '',
       password: '',
+      email: '',
+      mobile: ''
+    },
+    formData2: {
+      id: '',
       email: '',
       mobile: ''
     },
@@ -151,7 +176,7 @@
     data.dialogFormVisible = true
   }
 
-  //提交表单form
+  //新增提交表单form
   const submitForm = (formEl) => {
     //validate是element-plus的form的自带验证方法
     formEl.validate(res => {
@@ -176,6 +201,47 @@
         }
       })
     })
+  }
+
+  //修改提交form
+  const submitEForm = (formEl) => {
+    //validate是element-plus的form的自带验证方法
+    formEl.validate(res => {
+      if (!res) {
+        //验证不通过
+        return
+      }
+      userChangeInfoApi(data.formData2).then(res => {
+        if (res.data) {
+          //关闭弹窗
+          data.dialogFormEVisible = false
+          //再次初始化用户列表
+          searchList()
+        }
+      })
+    })
+  }
+
+  //用户状态开关
+  const switchChange = (row) => {
+    console.log(row)
+    userChangeStateApi(row).then(res => {
+      if (res.data) {
+        //隐藏编辑弹窗
+        data.dialogFormEVisible = false
+        //再次初始化用户列表
+        searchList()
+      }
+    })
+  }
+
+  //编辑用户信息
+  const editRow = (row) => {
+    //展示编辑表单
+    data.dialogFormEVisible = true
+    data.formData2.email = row.email
+    data.formData2.mobile = row.mobile
+    data.formData2.id = row.id
   }
 
   //初始化执行的方法，相当于生命周期create里

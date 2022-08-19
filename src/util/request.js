@@ -1,4 +1,4 @@
-import {post,get} from './service'
+import {post,get,put} from './service'
 
 export const loginApi = data => {
     return post({
@@ -19,6 +19,20 @@ export const userListApi = data => {
 export const userAddApi = data => {
     return post({
         url:'/users',
+        data
+    })
+}
+//用户状态开关
+export const userChangeStateApi = data => {
+    return put({
+        url:`users/${data.id}/state/${data.mg_state}`,
+        data
+    })
+}
+//更改用户信息
+export const userChangeInfoApi = data => {
+    return put({
+        url:`users/${data.id}`,
         data
     })
 }
