@@ -42,3 +42,12 @@ export const userDeleteApi = data => {
         url:`users/${data.id}`
     })
 }
+
+//角色列表
+//获取角色
+export const getRolesApi = data => {
+    return get({
+        url:'/roles',
+        data
+    })
+}
