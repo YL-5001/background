@@ -51,3 +51,17 @@ export const getRolesApi = data => {
         data
     })
 }
+//新建角色
+export const addRolesApi = data => {
+    return post({
+        url:'/roles',
+        data
+    })
+}
+//编辑角色
+export const editRolesApi = data => {
+    return put({
+        url:`roles/${data.id}`,
+        data
+    })
+}

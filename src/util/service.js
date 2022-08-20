@@ -29,7 +29,7 @@ Service.interceptors.request.use(config => {
 Service.interceptors.response.use(response=>{
     loadingObj.close()
     const data = response.data
-    if(data.meta.status != 200){
+    if(data.meta.status != 200 && data.meta.status != 201){
         //请求出错
         ElMessage.error(data.meta.msg||'服务器出错404')
         return data
