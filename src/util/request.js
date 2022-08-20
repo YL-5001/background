@@ -65,3 +65,18 @@ export const editRolesApi = data => {
         data
     })
 }
+//删除用户信息
+export const rolesDeleteApi = data => {
+    return del({
+        url:`roles/${data.id}`
+    })
+}
+
+//物品管理
+//获取物品列表
+export const goodsListApi = data => {
+    return get({
+        url:'/goods',
+        data
+    })
+}

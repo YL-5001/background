@@ -48,7 +48,8 @@
   import {
     getRolesApi,
     addRolesApi,
-    editRolesApi
+    editRolesApi,
+    rolesDeleteApi
   } from '@/util/request'
   import {
     reactive,
@@ -61,7 +62,7 @@
     rolesList: [],
     dialogFormVisible: false,
     formData: {
-      id:'',
+      id: '',
       roleName: '',
       roleDesc: ''
     },
@@ -94,7 +95,10 @@
 
   //删除
   const deleteRow = (row) => {
-
+    rolesDeleteApi(row).then(res => {
+      //初始化
+      getList()
+    })
   }
 
   //确定
